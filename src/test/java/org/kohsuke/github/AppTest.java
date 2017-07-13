@@ -57,10 +57,12 @@ public class AppTest extends AbstractGitHubApiTestBase {
         getUser().getRepository(name).delete();
     }
 
-    private void deleteRepository(final String name) throws IOException {
+    private void deleteRepository(final String name) throws IOException, InterruptedException {
         GHRepository repository = getUser().getRepository(name);
         if(repository != null) {
             repository.delete();
+            Thread.sleep(
+                    3000);
         }
     }
 

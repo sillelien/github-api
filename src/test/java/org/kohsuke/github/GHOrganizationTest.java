@@ -17,6 +17,7 @@ public class GHOrganizationTest extends AbstractGitHubApiTestBase {
         org = gitHub.getOrganization("dollar-github-api-test-org");
     }
 
+
     @Test
     public void testCreateRepository() throws IOException {
         GHRepository repository = org.createRepository(GITHUB_API_TEST,
@@ -39,5 +40,6 @@ public class GHOrganizationTest extends AbstractGitHubApiTestBase {
     public void cleanUp() throws Exception {
         GHRepository repository = org.getRepository(GITHUB_API_TEST);
         repository.delete();
+        Thread.sleep(1000);
     }
 }
