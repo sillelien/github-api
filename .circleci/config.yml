@@ -26,6 +26,13 @@ jobs:
             command: |
               ~/build-utils/maven_make_deps.sh
 
+        - run:
+            name: github-key
+            command: |
+              echo "login=neilellis" > ~/.github
+              echo "password=${GITHUB_PASSWORD}" >> ~/.github
+
+
         - save_cache:
             key: dependency-cache
             paths:
