@@ -1,6 +1,6 @@
-import org.kohsuke.github.GHRepository.Contributor;
-import org.kohsuke.github.GHUser;
-import org.kohsuke.github.GitHub;
+import com.sillelien.github.GHRepository.Contributor;
+import com.sillelien.github.GHUser;
+import com.sillelien.github.GitHub;
 
 /**
  * @author Kohsuke Kawaguchi

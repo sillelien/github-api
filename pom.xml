@@ -19,6 +19,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdk.version>1.8</jdk.version>
+        <buildNumber>0</buildNumber>
     </properties>
 
     <build>
@@ -32,9 +33,94 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                    <shadedClassifierName>plugin</shadedClassifierName>
+
+                    <!--<minimizeJar>true</minimizeJar>-->
+                    <artifactSet>
+                        <excludes>
+                            <!--<exclude>junit:junit</exclude>-->
+                            <!--&lt;!&ndash;<exclude>*:xml-apis</exclude>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<exclude>com.thoughtworks.xstream:xstream</exclude>&ndash;&gt;-->
+                            <!--<exclude>log4j:log4j:jar:</exclude>-->
+                            <!--<exclude>org.slf4j:slf4j-api</exclude>-->
+                            <!--<exclude>org.slf4j:slf4j-log4j12</exclude>-->
+                        </excludes>
+                    </artifactSet>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>com.thoughtworks.**</exclude>
+                                <exclude>org.slf4j.**</exclude>
+                                <exclude>org.apache.log4j.**</exclude>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                                <exclude>META-INF/*.INF</exclude>
+                                <!--<exclude>META-INF/license</exclude>-->
+                            </excludes>
+                        </filter>
+                    </filters>
+                    <relocations>
+                        <!--<relocation>-->
+                        <!--<pattern>com.sillelien.dollar</pattern>-->
+                        <!--<shadedPattern>com.sillelien.dollar.plugin.${plugin.name}.r${buildNumber}</shadedPattern>-->
+                        <!--</relocation>-->
+                        <relocation>
+                            <pattern>org</pattern>
+                            <shadedPattern>com.sillelien.github.v${buildNumber}.org</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com</pattern>
+                            <excludes>
+                                <exclude>com.sun.**</exclude>
+                                <exclude>com.sillelien.github.**</exclude>
+                            </excludes>
+                            <shadedPattern>com.sillelien.github.v${buildNumber}.com</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net</pattern>
+                            <shadedPattern>com.sillelien.github.v${buildNumber}.net</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>io</pattern>
+                            <shadedPattern>com.sillelien.github.v${buildNumber}.io</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <transformers>
+                        <!--<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
+                        <!--<manifestEntries>-->
+                        <!--<Plugin-Name>${plugin.name}</Plugin-Name>-->
+                        <!--<Build-Number>${buildNumber}</Build-Number>-->
+                        <!--</manifestEntries>-->
+                        <!--</transformer>-->
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"/>
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer">
+                            <addHeader>false</addHeader>
+                        </transformer>
+                    </transformers>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
     <dependencies>
         <dependency>
             <groupId>org.jetbrains</groupId>
