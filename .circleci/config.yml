@@ -40,7 +40,7 @@ jobs:
         - run:
             name: test
             command: |
-                 mvn -q -T 1C -Drat.skip -Dsource.skip=true -DgenerateReports=false -Dmaven.javadoc.skip=true install
+                 mvn -q -Drat.skip -Dsource.skip=true -DgenerateReports=false -Dmaven.javadoc.skip=true install
             no_output_timeout: 600
 
         - deploy:
