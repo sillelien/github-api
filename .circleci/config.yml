@@ -35,7 +35,6 @@ jobs:
             command: |
               echo "login=neilellis" > ~/.github
               echo "password=${GITHUB_PASSWORD}" >> ~/.github
-              cat ~/.github
               mvn -Drat.skip -Dsource.skip=true -DgenerateReports=false -Dmaven.javadoc.skip=true install
             no_output_timeout: 600
 

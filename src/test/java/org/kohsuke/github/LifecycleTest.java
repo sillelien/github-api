@@ -44,7 +44,6 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
                     .create();
             File repoDir = new File(System.getProperty("java.io.tmpdir"), "github-api-test");
             delete(repoDir);
-            System.out.println("**** "+repository.getHtmlUrl().toString());
             Git origin = Git.cloneRepository()
                     .setBare(false)
                     .setURI(repository.getHtmlUrl().toString())
