@@ -115,6 +115,6 @@ public class PullRequestTest extends AbstractGitHubApiTestBase {
     }
 
     private GHRepository getRepository() throws IOException {
-        return gitHub.getOrganization("github-api-test-org").getRepository("jenkins");
+        return gitHub.getOrganization("dollar-github-api-test-org").getRepository("junit4");
     }
 }

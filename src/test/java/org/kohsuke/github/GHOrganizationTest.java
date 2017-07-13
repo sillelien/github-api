@@ -14,7 +14,7 @@ public class GHOrganizationTest extends AbstractGitHubApiTestBase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        org = gitHub.getOrganization("github-api-test-org");
+        org = gitHub.getOrganization("dollar-github-api-test-org");
     }
 
     @Test

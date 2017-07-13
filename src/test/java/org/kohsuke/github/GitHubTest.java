@@ -48,7 +48,7 @@ public class GitHubTest {
     }
     @Test
     public void testGitHubServerWithoutServer() throws Exception {
-        GitHub hub = GitHub.connectUsingPassword("kohsuke", "bogus");
+        GitHub hub = GitHub.connectUsingPassword("neilellis", "bogus");
         assertEquals("https://api.github.com/test", hub.getApiURL("/test").toString());
     }
     @Test

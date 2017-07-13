@@ -17,7 +17,7 @@ public class GHContentIntegrationTest extends AbstractGitHubApiTestBase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        repo = gitHub.getRepository("github-api-test-org/GHContentIntegrationTest").fork();
+        repo = gitHub.getRepository("dollar-github-api-test-org/GHContentIntegrationTest").fork();
     }
 
     @Test
@@ -52,7 +52,7 @@ public class GHContentIntegrationTest extends AbstractGitHubApiTestBase {
 
     @Test
     public void testGetDirectoryContentTrailingSlash() throws Exception {
-        //Used to truncate the ?ref=master, see gh-224 https://github.com/kohsuke/github-api/pull/224
+        //Used to truncate the ?ref=master, see gh-224 https://github.com/sillelien/github-api/pull/224
         List<GHContent> entries = repo.getDirectoryContent("ghcontent-ro/a-dir-with-3-entries/", "master");
 
         assertTrue(entries.get(0).getUrl().endsWith("?ref=master"));

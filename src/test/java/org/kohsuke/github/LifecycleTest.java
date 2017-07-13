@@ -19,7 +19,7 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
     @Test
     public void testCreateRepository() throws IOException, GitAPIException, InterruptedException {
         GHMyself myself = gitHub.getMyself();
-        GHOrganization org = gitHub.getOrganization("github-api-test-org");
+        GHOrganization org = gitHub.getOrganization("dollar-github-api-test-org");
         GHRepository repository = org.getRepository("github-api-test");
         if (repository != null) {
             repository.delete();

@@ -90,14 +90,14 @@ public class GHLicenseTest extends Assert {
     }
 
     /**
-     * Accesses the 'kohsuke/github-api' repo using {@link GitHub#getRepository(String)}
+     * Accesses the 'sillelien/github-api' repo using {@link GitHub#getRepository(String)}
      * and checks that the license is correct
      *
      * @throws IOException
      */
     @Test
     public void checkRepositoryLicense() throws IOException {
-        GHRepository repo = gitHub.getRepository("kohsuke/github-api");
+        GHRepository repo = gitHub.getRepository("sillelien/github-api");
         GHLicense license = repo.getLicense();
         assertNotNull("The license is populated", license);
         assertTrue("The key is correct", license.getKey().equals("mit"));
@@ -151,7 +151,7 @@ public class GHLicenseTest extends Assert {
     }
 
     /**
-     * Accesses the 'kohsuke/github-api' repo using {@link GitHub#getRepository(String)}
+     * Accesses the 'sillelien/github-api' repo using {@link GitHub#getRepository(String)}
      * and then calls {@link GHRepository#getLicense()} and checks that certain
      * properties are correct
      *
@@ -159,7 +159,7 @@ public class GHLicenseTest extends Assert {
      */
     @Test
     public void checkRepositoryFullLicense() throws IOException {
-        GHRepository repo = gitHub.getRepository("kohsuke/github-api");
+        GHRepository repo = gitHub.getRepository("sillelien/github-api");
         GHLicense license = repo.getLicense();
         assertNotNull("The license is populated", license);
         assertTrue("The key is correct", license.getKey().equals("mit"));

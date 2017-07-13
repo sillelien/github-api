@@ -37,7 +37,7 @@ public abstract class AbstractGitHubApiTestBase extends Assert {
 
     protected void kohsuke() {
         String login = getUser().getLogin();
-        Assume.assumeTrue(login.equals("kohsuke") || login.equals("kohsuke2"));
+        Assume.assumeTrue(login.equals("neilellis") || login.equals("kohsuke2"));
     }
 
     protected static final RandomNameGenerator rnd = new RandomNameGenerator();

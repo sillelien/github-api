@@ -32,7 +32,7 @@ public class RepositoryTest extends AbstractGitHubApiTestBase {
         for (Contributor c : r.listContributors()) {
             System.out.println(c.getName());
             assertTrue(c.getContributions()>0);
-            if (c.getLogin().equals("kohsuke"))
+            if (c.getLogin().equals("neilellis"))
                 kohsuke = true;
             if (i++ > 5)
                 break;
@@ -44,8 +44,8 @@ public class RepositoryTest extends AbstractGitHubApiTestBase {
     @Test
     public void getPermission() throws Exception {
         kohsuke();
-        GHRepository r = gitHub.getRepository("github-api-test-org/test-permission");
-        assertEquals(GHPermissionType.ADMIN, r.getPermission("kohsuke"));
+        GHRepository r = gitHub.getRepository("dollar-github-api-test-org/test-permission");
+        assertEquals(GHPermissionType.ADMIN, r.getPermission("neilellis"));
         assertEquals(GHPermissionType.READ, r.getPermission("dude"));
         r = gitHub.getOrganization("apache").getRepository("groovy");
         try {
@@ -69,12 +69,12 @@ public class RepositoryTest extends AbstractGitHubApiTestBase {
     }
 
     private GHRepository getRepository() throws IOException {
-        return gitHub.getOrganization("github-api-test-org").getRepository("jenkins");
+        return gitHub.getOrganization("dollar-github-api-test-org").getRepository("junit4");
     }
 
     @Test
     public void listLanguages() throws IOException {
-        GHRepository r = gitHub.getRepository("kohsuke/github-api");
+        GHRepository r = gitHub.getRepository("sillelien/github-api");
         String mainLanguage = r.getLanguage();
         assertTrue(r.listLanguages().containsKey(mainLanguage));
     }
@@ -82,7 +82,7 @@ public class RepositoryTest extends AbstractGitHubApiTestBase {
     @Test // Issue #261
     public void listEmptyContributors() throws IOException {
         GitHub gh = GitHub.connect();
-        for (Contributor c : gh.getRepository("github-api-test-org/empty").listContributors()) {
+        for (Contributor c : gh.getRepository("dollar-github-api-test-org/empty").listContributors()) {
             System.out.println(c);
         }
     }
