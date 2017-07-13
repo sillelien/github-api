@@ -31,6 +31,7 @@ public class AppTest extends AbstractGitHubApiTestBase {
         String targetName = "github-api-test-rename2";
 
         deleteRepository("github-api-test-rename");
+        deleteRepository("github-api-test-rename2");
         deleteRepository(targetName);
         GHRepository r = gitHub.createRepository("github-api-test-rename", "a test repository", "http://github-api.kohsuke.org/", true);
         r.enableIssueTracker(false);

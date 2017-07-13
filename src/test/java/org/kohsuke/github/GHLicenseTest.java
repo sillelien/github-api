@@ -97,12 +97,12 @@ public class GHLicenseTest extends Assert {
      */
     @Test
     public void checkRepositoryLicense() throws IOException {
-        GHRepository repo = gitHub.getRepository("sillelien/github-api");
+        GHRepository repo = gitHub.getRepository("dollar-github-api-test-org/test-repo");
         GHLicense license = repo.getLicense();
         assertNotNull("The license is populated", license);
-        assertTrue("The key is correct", license.getKey().equals("mit"));
-        assertTrue("The name is correct", license.getName().equals("MIT License"));
-        assertTrue("The URL is correct", license.getUrl().equals(new URL("https://api.github.com/licenses/mit")));
+        assertTrue( "The key is incorrect",license.getKey().equals("mit") );
+        assertTrue("The name is incorrect", license.getName().equals("MIT License"));
+        assertTrue("The URL is incorrect", license.getUrl().equals(new URL("https://api.github.com/licenses/mit")));
     }
 
     /**
