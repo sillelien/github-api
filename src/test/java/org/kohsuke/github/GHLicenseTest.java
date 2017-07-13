@@ -159,7 +159,7 @@ public class GHLicenseTest extends Assert {
      */
     @Test
     public void checkRepositoryFullLicense() throws IOException {
-        GHRepository repo = gitHub.getRepository("sillelien/github-api");
+        GHRepository repo = gitHub.getRepository("dollar-github-api-test-org/test-repo");
         GHLicense license = repo.getLicense();
         assertNotNull("The license is populated", license);
         assertTrue("The key is correct", license.getKey().equals("mit"));

@@ -15,6 +15,11 @@ public class GHOrganizationTest extends AbstractGitHubApiTestBase {
     public void setUp() throws Exception {
         super.setUp();
         org = gitHub.getOrganization("dollar-github-api-test-org");
+        GHRepository repository = org.getRepository(GITHUB_API_TEST);
+        if(repository != null) {
+            repository.delete();
+            Thread.sleep(1000);
+        }
     }
 
 
