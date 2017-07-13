@@ -24,33 +24,14 @@
 package org.kohsuke.github;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.StringUtils;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.InterruptedIOException;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URL;
-import java.util.AbstractSet;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
-import static java.util.Arrays.*;
-import static org.kohsuke.github.Previews.*;
+import static java.util.Arrays.asList;
+import static org.kohsuke.github.Previews.DRAX;
+import static org.kohsuke.github.Previews.KORRA;
 
 /**
  * A repository on GitHub.
@@ -133,7 +114,7 @@ public class GHRepository extends GHObject {
     }
 
     private String getParam(String name, String value) {
-        return StringUtils.trimToNull(value)== null? null: name+"="+value;
+        return (value == null || value.replaceAll("\\s","").isEmpty()) ? null: name+"="+value;
     }
 
     public GHDeploymentStatusBuilder createDeployStatus(int deploymentId, GHDeploymentState ghDeploymentState) {
@@ -759,7 +740,7 @@ public class GHRepository extends GHObject {
         if (owner1!=null && owner2!=null) {
             String ownerName1 = owner1.getOwnerName();
             String ownerName2 = owner2.getOwnerName();
-            if (!StringUtils.equals(ownerName1, ownerName2)) {
+            if (!Objects.equals(ownerName1, ownerName2)) {
                 String qualifiedName1 = String.format("%s:%s", ownerName1, id1.getName());
                 String qualifiedName2 = String.format("%s:%s", ownerName2, id2.getName());
                 return getCompare(qualifiedName1, qualifiedName2);
@@ -1324,7 +1305,7 @@ public class GHRepository extends GHObject {
         Requester requester = new Requester(root)
             .with("path", path)
             .with("message", commitMessage)
-            .with("content", Base64.encodeBase64String(contentBytes))
+            .with("content", Base64.getEncoder().encodeToString(contentBytes))
             .method("PUT");
 
         if (branch != null) {

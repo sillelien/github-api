@@ -3,7 +3,6 @@ package org.kohsuke.github;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.kohsuke.github.GHCommit.File;
 import org.kohsuke.github.GHOrganization.Permission;
@@ -314,7 +313,7 @@ public class AppTest extends AbstractGitHubApiTestBase {
 
     @Test
     public void testMemberOrgs() throws Exception {
-        Set<GHOrganization> o = gitHub.getUser("neilellis").getOrganizations();
+        Set<GHOrganization> o = gitHub.getUser("kohsuke").getOrganizations();
         System.out.println(o);
     }
 
@@ -359,7 +358,7 @@ public class AppTest extends AbstractGitHubApiTestBase {
 
         // walk the tree
         GHTree t = commit.getTree();
-        assertThat(IOUtils.toString(t.getEntry("dummy.txt").readAsBlob()), containsString("Dummy"));
+        assertThat(Util.toString(t.getEntry("dummy.txt").readAsBlob()), containsString("Dummy"));
 //        assertNotNull(t.getEntry("war").asTree());
     }
 
@@ -800,9 +799,9 @@ public class AppTest extends AbstractGitHubApiTestBase {
 
     @Test
     public void markDown() throws Exception {
-        assertEquals("<p><strong>Test日本語</strong></p>", IOUtils.toString(gitHub.renderMarkdown("**Test日本語**")).trim());
+        assertEquals("<p><strong>Test日本語</strong></p>", Util.toString(gitHub.renderMarkdown("**Test日本語**")).trim());
 
-        String actual = IOUtils.toString(gitHub.getRepository("dollar-github-api-test-org/test-repo").renderMarkdown("@neilellis to fix issue #1", MarkdownMode.GFM));
+        String actual = Util.toString(gitHub.getRepository("dollar-github-api-test-org/test-repo").renderMarkdown("@neilellis to fix issue #1", MarkdownMode.GFM));
         System.out.println(actual);
         assertTrue(actual.contains("href=\"https://github.com/neilellis\""));
         assertTrue(actual.contains("href=\"https://github.com/dollar-github-api-test-org/test-repo/pull/1\""));
@@ -917,7 +916,7 @@ public class AppTest extends AbstractGitHubApiTestBase {
     }
 
     private void assertBlobContent(InputStream is) throws Exception {
-        String content = new String(IOUtils.toByteArray(is),"UTF-8");
+        String content = new String(Util.toByteArray(is),"UTF-8");
         assertThat(content,containsString("Copyright (c) 2011- Kohsuke Kawaguchi and other contributors"));
         assertThat(content,containsString("FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR"));
         assertThat(content.length(),is(1104));

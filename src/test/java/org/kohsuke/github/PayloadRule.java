@@ -1,15 +1,11 @@
 package org.kohsuke.github;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
-import org.apache.commons.io.IOUtils;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
+
+import java.io.*;
+import java.nio.charset.Charset;
 
 /**
  * @author Stephen Connolly
@@ -54,11 +50,8 @@ public class PayloadRule implements TestRule {
     }
 
     public byte[] asBytes() throws IOException {
-        InputStream input = asInputStream();
-        try {
-            return IOUtils.toByteArray(input);
-        } finally {
-            IOUtils.closeQuietly(input);
+        try (InputStream input = asInputStream()){
+            return Util.toByteArray(input);
         }
     }
 

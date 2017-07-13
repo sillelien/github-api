@@ -1,10 +1,9 @@
 package org.kohsuke.github;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 
 
 /**
@@ -75,7 +74,7 @@ public class GHContent {
      *      Use {@link #read()}
      */
     public String getContent() throws IOException {
-        return new String(Base64.decodeBase64(getEncodedContent()));
+        return new String(Base64.getDecoder().decode(getEncodedContent()));
     }
 
     /**
@@ -93,7 +92,7 @@ public class GHContent {
         if (content!=null)
             return content;
         else
-            return Base64.encodeBase64String(IOUtils.toByteArray(read()));
+            return Base64.getEncoder().encodeToString(Util.toByteArray(read()));
     }
 
     public String getUrl() {
@@ -174,7 +173,7 @@ public class GHContent {
     }
 
     public GHContentUpdateResponse update(byte[] newContentBytes, String commitMessage, String branch) throws IOException {
-        String encodedContent = Base64.encodeBase64String(newContentBytes);
+        String encodedContent = Base64.getEncoder().encodeToString(newContentBytes);
 
         Requester requester = new Requester(root)
             .with("path", path)

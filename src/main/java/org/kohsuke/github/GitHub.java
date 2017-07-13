@@ -28,9 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker.Std;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.apache.commons.codec.Charsets;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -126,8 +123,8 @@ public class GitHub {
         } else {
             if (password!=null) {
                 String authorization = (login + ':' + password);
-                String charsetName = Charsets.UTF_8.name();
-                encodedAuthorization = "Basic "+new String(Base64.encodeBase64(authorization.getBytes(charsetName)), charsetName);
+
+                encodedAuthorization = "Basic "+new String(Base64.getEncoder().encode(authorization.getBytes("utf-8")), "utf-8");
             } else {// anonymous access
                 encodedAuthorization = null;
             }
@@ -694,11 +691,15 @@ public class GitHub {
             } finally {
                 // ensure that the connection opened by getResponseCode gets closed
                 try {
-                    IOUtils.closeQuietly(uc.getInputStream());
+                    uc.getInputStream().close();
                 } catch (IOException ignore) {
                     // ignore
                 }
-                IOUtils.closeQuietly(uc.getErrorStream());
+                try {
+                uc.getErrorStream().close();
+                } catch (IOException ignore) {
+                    // ignore
+                }
             }
         } catch (IOException e) {
             return false;

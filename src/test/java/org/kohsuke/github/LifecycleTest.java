@@ -1,6 +1,5 @@
 package org.kohsuke.github;
 
-import org.apache.commons.io.IOUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.dircache.DirCache;
@@ -108,13 +107,11 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
     private UsernamePasswordCredentialsProvider getCredentialsProvider(GHMyself myself) throws IOException {
         Properties props = new Properties();
         File homeDir = new File(System.getProperty("user.home"));
-        FileInputStream in = new FileInputStream(new File(homeDir, ".github"));
-        try {
+        ;
+        try (FileInputStream in = new FileInputStream(new File(homeDir, ".github"))){
             props.load(in);
-        } finally {
-            IOUtils.closeQuietly(in);
         }
-        props.list(System.out);
+//        props.list(System.out);
         return new UsernamePasswordCredentialsProvider(props.getProperty("login"), props.getProperty("password"));
     }
 

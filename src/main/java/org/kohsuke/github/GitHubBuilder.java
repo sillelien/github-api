@@ -1,6 +1,5 @@
 package org.kohsuke.github;
 
-import org.apache.commons.io.IOUtils;
 import org.kohsuke.github.extras.ImpatientHttpConnector;
 
 import java.io.File;
@@ -135,12 +134,8 @@ public class GitHubBuilder {
 
     public static GitHubBuilder fromPropertyFile(String propertyFileName) throws IOException {
         Properties props = new Properties();
-        FileInputStream in = null;
-        try {
-            in = new FileInputStream(propertyFileName);
+        try (FileInputStream in = new FileInputStream(propertyFileName)){
             props.load(in);
-        } finally {
-            IOUtils.closeQuietly(in);
         }
      
         return fromProperties(props);

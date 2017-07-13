@@ -1,9 +1,9 @@
 package org.kohsuke.github;
 
-import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Base class for various search builders.
@@ -38,7 +38,7 @@ public abstract class GHSearchBuilder<T> extends GHQueryBuilder<T> {
     public PagedSearchIterable<T> list() {
         return new PagedSearchIterable<T>(root) {
             public PagedIterator<T> _iterator(int pageSize) {
-                req.set("q", StringUtils.join(terms, " "));
+                req.set("q", terms.stream().collect(Collectors.joining(" ")));
                 return new PagedIterator<T>(adapt(req.asIterator(getApiUrl(), receiverType, pageSize))) {
                     protected void wrapUp(T[] page) {
                         // SearchResult.getItems() should do it

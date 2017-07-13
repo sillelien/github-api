@@ -1,7 +1,5 @@
 package org.kohsuke.github;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 /**
  * SSH public key.
  *
@@ -46,7 +44,16 @@ public class GHKey {
         return this;
     }
 
+    @Override
     public String toString() {
-        return new ToStringBuilder(this).append("title",title).append("id",id).append("key",key).toString();
+        final StringBuffer sb = new StringBuffer("GHKey{");
+        sb.append("root=").append(root);
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", key='").append(key).append('\'');
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", verified=").append(verified);
+        sb.append(", id=").append(id);
+        sb.append('}');
+        return sb.toString();
     }
 }

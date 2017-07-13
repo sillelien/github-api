@@ -24,7 +24,6 @@
 
 package org.kohsuke.github;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -184,7 +183,7 @@ public class GHLicenseTest extends Assert {
         assertTrue("The license file is 'LICENSE'", content.getName().equals("LICENSE"));
 
         if (content.getEncoding().equals("base64")) {
-            String licenseText = new String(IOUtils.toByteArray(content.read()));
+            String licenseText = Util.toString(content.read());
             assertTrue("The license appears to be an Apache License", licenseText.contains("Apache License"));
         } else {
             fail("Expected the license to be Base64 encoded but instead it was " + content.getEncoding());

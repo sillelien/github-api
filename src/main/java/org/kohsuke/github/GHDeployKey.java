@@ -2,8 +2,6 @@ package org.kohsuke.github;
 
 import java.io.IOException;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 public class GHDeployKey {
 
     protected String url, key, title;
@@ -36,10 +34,19 @@ public class GHDeployKey {
         return this;
     }
 
+    @Override
     public String toString() {
-        return new ToStringBuilder(this).append("title",title).append("id",id).append("key",key).toString();
+        final StringBuffer sb = new StringBuffer("GHDeployKey{");
+        sb.append("url='").append(url).append('\'');
+        sb.append(", key='").append(key).append('\'');
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", verified=").append(verified);
+        sb.append(", id=").append(id);
+        sb.append(", owner=").append(owner);
+        sb.append('}');
+        return sb.toString();
     }
-    
+
     public void delete() throws IOException {
         new Requester(owner.root).method("DELETE").to(String.format("/repos/%s/%s/keys/%d", owner.getOwnerName(), owner.getName(), id));
     }
