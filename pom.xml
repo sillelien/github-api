@@ -40,7 +40,7 @@
                 <version>2.3</version>
                 <configuration>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
-                    <shadedClassifierName>plugin</shadedClassifierName>
+                    <shadedClassifierName>shaded</shadedClassifierName>
 
                     <!--<minimizeJar>true</minimizeJar>-->
                     <artifactSet>
