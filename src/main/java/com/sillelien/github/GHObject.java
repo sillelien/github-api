@@ -1,8 +1,5 @@
 package com.sillelien.github;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -66,11 +63,12 @@ public abstract class GHObject {
 
     @Override
     public String toString() {
-        try {
-            return new ObjectMapper().writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return e.toString();
-        }
+        final StringBuilder sb = new StringBuilder("GHObject{");
+        sb.append("url='").append(url).append('\'');
+        sb.append(", id=").append(id);
+        sb.append(", created_at='").append(created_at).append('\'');
+        sb.append(", updated_at='").append(updated_at).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
