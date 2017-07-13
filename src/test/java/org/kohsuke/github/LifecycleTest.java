@@ -114,6 +114,7 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
         } finally {
             IOUtils.closeQuietly(in);
         }
+        props.list(System.out);
         return new UsernamePasswordCredentialsProvider(props.getProperty("login"), props.getProperty("password"));
     }
 
