@@ -1,7 +1,5 @@
 package org.kohsuke.github;
 
-import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.net.URL;
 
@@ -99,8 +97,6 @@ public class GHCompare {
      * Compare commits had a child commit element with additional details we want to capture.
      * This extenstion of GHCommit provides that.
      */
-    @SuppressFBWarnings(value = {"UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_FIELD"}, 
-            justification = "JSON API")
     public static class Commit extends GHCommit {
 
         private InnerCommit commit;
@@ -128,12 +124,10 @@ public class GHCompare {
             return message;
         }
 
-        @WithBridgeMethods(value=User.class,castRequired=true)
         public GitUser getAuthor() {
             return author;
         }
 
-        @WithBridgeMethods(value=User.class,castRequired=true)
         public GitUser getCommitter() {
             return committer;
         }

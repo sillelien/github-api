@@ -1,6 +1,5 @@
 package org.kohsuke.github;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
@@ -8,7 +7,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *
  * @author Kohsuke Kawaguchi
  */
-@SuppressFBWarnings(value = "UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", justification = "JSON API")
 public class GHKey {
     /*package almost final*/ GitHub root;
 

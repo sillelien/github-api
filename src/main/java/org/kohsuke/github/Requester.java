@@ -24,42 +24,23 @@
 package org.kohsuke.github;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+
+import java.io.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.net.*;
+import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
-import javax.annotation.WillClose;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 
 import static java.util.Arrays.asList;
-import java.util.logging.Level;
-import static java.util.logging.Level.*;
+import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.FINEST;
 import static org.kohsuke.github.GitHub.MAPPER;
 
 /**
@@ -165,7 +146,7 @@ class Requester {
         return _with(key, value);
     }
 
-    public Requester with(@WillClose/*later*/ InputStream body) {
+    public Requester with(InputStream body) {
         this.body = body;
         return this;
     }
@@ -241,7 +222,6 @@ class Requester {
         return method(method).to(tailApiUrl, type);
     }
 
-    @SuppressFBWarnings("SBSC_USE_STRINGBUFFER_CONCATENATION")
     private <T> T _to(String tailApiUrl, Class<T> type, T instance) throws IOException {
         if (!isMethodWithBody() && !args.isEmpty()) {
             boolean questionMarkFound = tailApiUrl.indexOf('?') != -1;

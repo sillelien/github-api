@@ -1,10 +1,11 @@
 package org.kohsuke.github;
 
+
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import javax.annotation.CheckForNull;
 
 /**
  * {@link IOException} for http exceptions because {@link HttpURLConnection} throws un-discerned
@@ -85,7 +86,7 @@ public class HttpException extends IOException {
      * @see HttpURLConnection#getResponseCode()
      * @see HttpURLConnection#getResponseMessage()
      */
-    public HttpException(int responseCode, String responseMessage, @CheckForNull URL url, Throwable cause) {
+    public HttpException(int responseCode, String responseMessage, @Nullable URL url, Throwable cause) {
         this(responseCode, responseMessage, url == null ? null : url.toString(), cause);
     }
 

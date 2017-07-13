@@ -1,6 +1,5 @@
 package org.kohsuke.github;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.Date;
 
@@ -9,7 +8,6 @@ import java.util.Date;
  *
  * @author noctarius
  */
-@SuppressFBWarnings(value = {"UWF_UNWRITTEN_FIELD", "NP_UNWRITTEN_FIELD"}, justification = "JSON API")
 public class GHStargazer {
 
     private GHRepository repository;

@@ -1,25 +1,21 @@
 package org.kohsuke.github;
 
-import static org.kohsuke.github.Previews.LOKI;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.kohsuke.github.BranchProtection.RequiredStatusChecks;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.kohsuke.github.BranchProtection.RequiredStatusChecks;
+import static org.kohsuke.github.Previews.LOKI;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * A branch in a repository.
  * 
  * @author Yusuke Kokubo
  */
-@SuppressFBWarnings(value = {"UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_FIELD", 
-    "NP_UNWRITTEN_FIELD", "URF_UNREAD_FIELD"}, justification = "JSON API")
 public class GHBranch {
     private GitHub root;
     private GHRepository owner;
@@ -34,7 +30,6 @@ public class GHBranch {
     public static class Commit {
         String sha;
         
-        @SuppressFBWarnings(value = "UUF_UNUSED_FIELD", justification = "We don't provide it in API now")
         String url;
     }
 

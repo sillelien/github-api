@@ -26,33 +26,20 @@ package org.kohsuke.github;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker.Std;
-import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
-import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.apache.commons.codec.Charsets;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.logging.Logger;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import org.apache.commons.codec.Charsets;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
@@ -307,7 +294,7 @@ public class GitHub {
         }
     }
 
-    /*package*/ void updateRateLimit(@Nonnull GHRateLimit observed) {
+    /*package*/ void updateRateLimit(@NotNull GHRateLimit observed) {
         synchronized (headerRateLimitLock) {
             if (headerRateLimit == null
                     || headerRateLimit.getResetDate().getTime() < observed.getResetDate().getTime()
@@ -324,7 +311,7 @@ public class GitHub {
      *
      * @return the most recently observed rate limit data or {@code null}.
      */
-    @CheckForNull
+    @Nullable
     public GHRateLimit lastRateLimit() {
         synchronized (headerRateLimitLock) {
             return headerRateLimit;
@@ -337,7 +324,7 @@ public class GitHub {
      * @return the current rate limit data.
      * @throws IOException if we couldn't get the current rate limit data.
      */
-    @Nonnull
+    @NotNull
     public GHRateLimit rateLimit() throws IOException {
         synchronized (headerRateLimitLock) {
             if (headerRateLimit != null) {
@@ -354,7 +341,6 @@ public class GitHub {
     /**
      * Gets the {@link GHUser} that represents yourself.
      */
-    @WithBridgeMethods(GHUser.class)
     public GHMyself getMyself() throws IOException {
         requireCredential();
 
@@ -616,14 +602,14 @@ public class GitHub {
     /**
      * @see <a href="https://developer.github.com/v3/oauth_authorizations/#check-an-authorization">Check an authorization</a>
      */
-    public GHAuthorization checkAuth(@Nonnull String clientId, @Nonnull String accessToken) throws IOException {
+    public GHAuthorization checkAuth(@NotNull String clientId, @NotNull String accessToken) throws IOException {
         return retrieve().to("/applications/" + clientId + "/tokens/" + accessToken, GHAuthorization.class);
     }
 
     /**
      * @see <a href="https://developer.github.com/v3/oauth_authorizations/#reset-an-authorization">Reset an authorization</a>
      */
-    public GHAuthorization resetAuth(@Nonnull String clientId, @Nonnull String accessToken) throws IOException {
+    public GHAuthorization resetAuth(@NotNull String clientId, @NotNull String accessToken) throws IOException {
         return retrieve().method("POST").to("/applications/" + clientId + "/tokens/" + accessToken, GHAuthorization.class);
     }
 

@@ -1,7 +1,5 @@
 package org.kohsuke.github;
 
-import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.net.URL;
 import java.util.AbstractList;
@@ -17,8 +15,6 @@ import java.util.List;
  * @see GHRepository#getCommit(String)
  * @see GHCommitComment#getCommit()
  */
-@SuppressFBWarnings(value = {"NP_UNWRITTEN_FIELD", "UWF_UNWRITTEN_FIELD"}, 
-        justification = "JSON API")
 public class GHCommit {
     private GHRepository owner;
     
@@ -27,8 +23,6 @@ public class GHCommit {
     /**
      * Short summary of this commit.
      */
-    @SuppressFBWarnings(value = {"UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_FIELD", 
-    "NP_UNWRITTEN_FIELD", "UWF_UNWRITTEN_FIELD"}, justification = "JSON API")
     public static class ShortInfo {
         private GHAuthor author;
         private GHAuthor committer;
@@ -43,7 +37,6 @@ public class GHCommit {
 
         private Tree tree;
 
-        @WithBridgeMethods(value = GHAuthor.class, castRequired = true)
         public GitUser getAuthor() {
             return author;
         }
@@ -52,7 +45,6 @@ public class GHCommit {
             return GitHub.parseDate(author.date);
         }
 
-        @WithBridgeMethods(value = GHAuthor.class, castRequired = true)
         public GitUser getCommitter() {
             return committer;
         }
@@ -87,8 +79,6 @@ public class GHCommit {
     /**
      * A file that was modified.
      */
-    @SuppressFBWarnings(value = "UWF_UNWRITTEN_FIELD", 
-            justification = "It's being initilized by JSON deserialization")
     public static class File {
         String status;
         int changes,additions,deletions;
@@ -126,8 +116,6 @@ public class GHCommit {
         /**
          * Full path in the repository.
          */
-        @SuppressFBWarnings(value = "NM_CONFUSING",
-                justification = "It's a part of the library's API and cannot be renamed")
         public String getFileName() {
             return filename;
         }
@@ -171,16 +159,13 @@ public class GHCommit {
     }
 
     public static class Parent {
-        @SuppressFBWarnings(value = "UUF_UNUSED_FIELD", justification = "We don't provide it in API now")
-        String url;  
+        String url;
         String sha;
     }
 
     static class User {
         // TODO: what if someone who doesn't have an account on GitHub makes a commit?
-        @SuppressFBWarnings(value = "UUF_UNUSED_FIELD", justification = "We don't provide it in API now")
         String url,avatar_url,gravatar_id;
-        @SuppressFBWarnings(value = "UUF_UNUSED_FIELD", justification = "We don't provide it in API now")
         int id;
         
         String login;

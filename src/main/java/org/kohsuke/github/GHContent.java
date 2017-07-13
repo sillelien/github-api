@@ -1,13 +1,11 @@
 package org.kohsuke.github;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.xml.bind.DatatypeConverter;
 
 /**
  * A Content of a repository.
@@ -76,7 +74,6 @@ public class GHContent {
      * @deprecated
      *      Use {@link #read()}
      */
-    @SuppressFBWarnings("DM_DEFAULT_ENCODING")
     public String getContent() throws IOException {
         return new String(Base64.decodeBase64(getEncodedContent()));
     }
@@ -164,12 +161,10 @@ public class GHContent {
         };
     }
 
-    @SuppressFBWarnings("DM_DEFAULT_ENCODING")
     public GHContentUpdateResponse update(String newContent, String commitMessage) throws IOException {
         return update(newContent.getBytes(), commitMessage, null);
     }
 
-    @SuppressFBWarnings("DM_DEFAULT_ENCODING")
     public GHContentUpdateResponse update(String newContent, String commitMessage, String branch) throws IOException {
         return update(newContent.getBytes(), commitMessage, branch);
     }

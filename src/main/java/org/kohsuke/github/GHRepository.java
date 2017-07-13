@@ -24,8 +24,6 @@
 package org.kohsuke.github;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
@@ -60,8 +58,6 @@ import static org.kohsuke.github.Previews.*;
  * @author Kohsuke Kawaguchi
  */
 @SuppressWarnings({"UnusedDeclaration"})
-@SuppressFBWarnings(value = {"UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_FIELD", 
-    "NP_UNWRITTEN_FIELD"}, justification = "JSON API")
 public class GHRepository extends GHObject {
     /*package almost final*/ GitHub root;
 
@@ -440,7 +436,6 @@ public class GHRepository extends GHObject {
      * Gets the collaborators on this repository.
      * This set always appear to include the owner.
      */
-    @WithBridgeMethods(Set.class)
     public GHPersonSet<GHUser> getCollaborators() throws IOException {
         return new GHPersonSet<GHUser>(listCollaborators().asList());
     }
@@ -1146,8 +1141,6 @@ public class GHRepository extends GHObject {
      * @deprecated
      *      Use {@link #getHooks()} and {@link #createHook(String, Map, Collection, boolean)}
      */
-    @SuppressFBWarnings(value = "DMI_COLLECTION_OF_URLS", 
-            justification = "It causes a performance degradation, but we have already exposed it to the API")
     public Set<URL> getPostCommitHooks() {
         return postCommitHooks;
     }
@@ -1155,8 +1148,6 @@ public class GHRepository extends GHObject {
     /**
      * Live set view of the post-commit hook.
      */
-    @SuppressFBWarnings(value = "DMI_COLLECTION_OF_URLS", 
-            justification = "It causes a performance degradation, but we have already exposed it to the API")
     @SkipFromToString
     private final Set<URL> postCommitHooks = new AbstractSet<URL>() {
         private List<URL> getPostCommitHooks() {

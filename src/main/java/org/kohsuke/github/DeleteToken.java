@@ -23,13 +23,9 @@
  */
 package org.kohsuke.github;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * @author Kohsuke Kawaguchi
  */
-@SuppressFBWarnings(value = "UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD", 
-        justification = "Being constructed by JSON deserialization")
 class DeleteToken {
     public String delete_token;
 }

@@ -24,20 +24,13 @@
 
 package org.kohsuke.github;
 
-import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
-import static org.kohsuke.github.Previews.*;
+import static org.kohsuke.github.Previews.SQUIRREL_GIRL;
 
 /**
  * Represents an issue on GitHub.
@@ -154,7 +147,6 @@ public class GHIssue extends GHObject implements Reactable{
      * @return
      *      Newly posted comment.
      */
-    @WithBridgeMethods(void.class)
     public GHIssueComment comment(String message) throws IOException {
         GHIssueComment r = new Requester(root).with("body",message).to(getIssuesApiRoute() + "/comments", GHIssueComment.class);
         return r.wrapUp(this);
@@ -338,8 +330,6 @@ public class GHIssue extends GHObject implements Reactable{
         return milestone;
     }
 
-    @SuppressFBWarnings(value = {"UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD", "UWF_UNWRITTEN_FIELD"}, 
-        justification = "JSON API")
     public static class PullRequest{
         private String diff_url, patch_url, html_url;
         

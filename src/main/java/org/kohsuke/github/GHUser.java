@@ -23,7 +23,6 @@
  */
 package org.kohsuke.github;
 
-import com.infradna.tool.bridge_method_injector.WithBridgeMethods;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -53,7 +52,6 @@ public class GHUser extends GHPerson {
     /**
      * Lists the users that this user is following
      */
-    @WithBridgeMethods(Set.class)
     public GHPersonSet<GHUser> getFollows() throws IOException {
         return new GHPersonSet<GHUser>(listFollows().asList());
     }
@@ -68,7 +66,6 @@ public class GHUser extends GHPerson {
     /**
      * Lists the users who are following this user.
      */
-    @WithBridgeMethods(Set.class)
     public GHPersonSet<GHUser> getFollowers() throws IOException {
         return new GHPersonSet<GHUser>(listFollowers().asList());
     }
@@ -151,7 +148,6 @@ public class GHUser extends GHPerson {
     /**
      * Gets the organization that this user belongs to publicly.
      */
-    @WithBridgeMethods(Set.class)
     public GHPersonSet<GHOrganization> getOrganizations() throws IOException {
         GHPersonSet<GHOrganization> orgs = new GHPersonSet<GHOrganization>();
         Set<String> names = new HashSet<String>();
