@@ -25,7 +25,7 @@ jobs:
             name: dependencies
             command: |
               ~/build-utils/maven_make_deps.sh
-                  
+
         - save_cache:
             key: dependency-cache
             paths:
@@ -35,7 +35,7 @@ jobs:
             command: |
               echo "login=neilellis" > ~/.github
               echo "password=${GITHUB_PASSWORD}" >> ~/.github
-                 mvn -q -Drat.skip -Dsource.skip=true -DgenerateReports=false -Dmaven.javadoc.skip=true install
+              mvn -Drat.skip -Dsource.skip=true -DgenerateReports=false -Dmaven.javadoc.skip=true install
             no_output_timeout: 600
 
         - deploy:
