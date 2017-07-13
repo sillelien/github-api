@@ -107,4 +107,14 @@
         </license>
     </licenses>
 
+
+    <distributionManagement>
+        <repository>
+            <id>bintray-sillelien-maven</id>
+            <name>sillelien-maven</name>
+            <url>https://api.bintray.com/maven/sillelien/maven/github-api/;publish=1</url>
+        </repository>
+    </distributionManagement>
+
+
 </project>

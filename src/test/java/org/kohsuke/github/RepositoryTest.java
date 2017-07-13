@@ -12,7 +12,7 @@ import java.io.IOException;
 public class RepositoryTest extends AbstractGitHubApiTestBase {
     @Test
     public void subscription() throws Exception {
-        GHRepository r = getRepository();
+        GHRepository r = gitHub.getOrganization("dollar-github-api-test-org").getRepository("test-sub");
         assertNull(r.getSubscription());
 
         GHSubscription s = r.subscribe(true, false);
@@ -25,26 +25,26 @@ public class RepositoryTest extends AbstractGitHubApiTestBase {
 
     @Test
     public void listContributors() throws IOException {
-        GHRepository r = gitHub.getOrganization("stapler").getRepository("stapler");
+        GHRepository r = gitHub.getOrganization("junit-team").getRepository("junit4");
         int i=0;
-        boolean kohsuke = false;
+        boolean matched = false;
 
         for (Contributor c : r.listContributors()) {
             System.out.println(c.getName());
             assertTrue(c.getContributions()>0);
-            if (c.getLogin().equals("neilellis"))
-                kohsuke = true;
+            if (c.getLogin().equals("stefanbirkner"))
+                matched = true;
             if (i++ > 5)
                 break;
         }
 
-        assertTrue(kohsuke);
+        assertTrue(matched);
     }
 
     @Test
     public void getPermission() throws Exception {
         kohsuke();
-        GHRepository r = gitHub.getRepository("dollar-github-api-test-org/test-permission");
+        GHRepository r = gitHub.getRepository("dollar-github-api-test-org/test-repo");
         assertEquals(GHPermissionType.ADMIN, r.getPermission("neilellis"));
         assertEquals(GHPermissionType.READ, r.getPermission("dude"));
         r = gitHub.getOrganization("apache").getRepository("groovy");
@@ -69,7 +69,7 @@ public class RepositoryTest extends AbstractGitHubApiTestBase {
     }
 
     private GHRepository getRepository() throws IOException {
-        return gitHub.getOrganization("dollar-github-api-test-org").getRepository("junit4");
+        return gitHub.getOrganization("dollar-github-api-test-org").getRepository("test-repo");
     }
 
     @Test

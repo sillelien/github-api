@@ -17,7 +17,7 @@ public class GHContentIntegrationTest extends AbstractGitHubApiTestBase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        repo = gitHub.getRepository("dollar-github-api-test-org/GHContentIntegrationTest").fork();
+        repo = gitHub.getRepository("dollar-github-api-test-org/test-gh-content");
     }
 
     @Test
@@ -29,15 +29,15 @@ public class GHContentIntegrationTest extends AbstractGitHubApiTestBase {
 
     @Test
     public void testGetFileContent() throws Exception {
-        GHContent content = repo.getFileContent("ghcontent-ro/a-file-with-content");
+        GHContent content = repo.getFileContent("ghcontent-ro/content.txt");
 
         assertTrue(content.isFile());
-        assertEquals("thanks for reading me\n", content.getContent());
+        assertEquals("Some content\n", content.getContent());
     }
 
     @Test
     public void testGetEmptyFileContent() throws Exception {
-        GHContent content = repo.getFileContent("ghcontent-ro/an-empty-file");
+        GHContent content = repo.getFileContent("ghcontent-ro/empty.txt");
 
         assertTrue(content.isFile());
         assertEquals("", content.getContent());

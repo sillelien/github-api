@@ -25,10 +25,14 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
             repository.delete();
             Thread.sleep(1000);
         }
-        repository = org.createRepository("github-api-test",
+        org.createRepository("github-api-test",
                 "a test repository used to test kohsuke's github-api", "http://github-api.kohsuke.org/", "Core Developers", true);
-        Thread.sleep(1000); // wait for the repository to become ready
-
+        Thread.sleep(5000); // wait for the repository to become ready
+        while (repository == null) {
+            repository = org.getRepository("github-api-test");
+            System.out.println("Waiting ...");
+            Thread.sleep(1000);
+        }
         assertTrue(repository.getReleases().isEmpty());
         try {
             GHMilestone milestone = repository.createMilestone("Initial Release", "first one");
@@ -42,7 +46,7 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
             delete(repoDir);
             Git origin = Git.cloneRepository()
                     .setBare(false)
-                    .setURI(repository.getSshUrl())
+                    .setURI(repository.getHtmlUrl().toString())
                     .setDirectory(repoDir)
                     .setCredentialsProvider(getCredentialsProvider(myself))
                     .call();
@@ -110,7 +114,7 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
         } finally {
             IOUtils.closeQuietly(in);
         }
-        return new UsernamePasswordCredentialsProvider(props.getProperty("login"), props.getProperty("oauth"));
+        return new UsernamePasswordCredentialsProvider(props.getProperty("login"), props.getProperty("password"));
     }
 
     private void delete(File toDelete) {

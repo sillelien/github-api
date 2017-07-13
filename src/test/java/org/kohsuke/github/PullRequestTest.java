@@ -32,7 +32,7 @@ public class PullRequestTest extends AbstractGitHubApiTestBase {
         GHPullRequest p = getRepository().createPullRequest(name, "stable", "master", "## test");
         System.out.println(p.getUrl());
         assertTrue(p.listReviewComments().asList().isEmpty());
-        p.createReviewComment("Sample review comment", p.getHead().getSha(), "cli/pom.xml", 5);
+        p.createReviewComment("Sample review comment", p.getHead().getSha(), "dummy-3.txt", 1);
         List<GHPullRequestReviewComment> comments = p.listReviewComments().asList();
         assertEquals(1, comments.size());
         GHPullRequestReviewComment comment = comments.get(0);
@@ -115,6 +115,6 @@ public class PullRequestTest extends AbstractGitHubApiTestBase {
     }
 
     private GHRepository getRepository() throws IOException {
-        return gitHub.getOrganization("dollar-github-api-test-org").getRepository("junit4");
+        return gitHub.getOrganization("dollar-github-api-test-org").getRepository("test-repo");
     }
 }

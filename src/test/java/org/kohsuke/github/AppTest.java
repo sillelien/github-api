@@ -268,7 +268,7 @@ public class AppTest extends AbstractGitHubApiTestBase {
     @Test
     public void testRepoPermissions() throws Exception {
         kohsuke();
-        GHRepository r = gitHub.getOrganization("sillelien").getRepository("junit4");
+        GHRepository r = gitHub.getOrganization("dollar-github-api-test-org").getRepository("test-repo");
         assertTrue(r.hasPullAccess());
 
         r = gitHub.getOrganization("github").getRepository("hub");
@@ -342,22 +342,22 @@ public class AppTest extends AbstractGitHubApiTestBase {
 
     @Test
     public void testCommit() throws Exception {
-        GHCommit commit = gitHub.getUser("sillelien").getRepository("junit4").getCommit("08c1c9970af4d609ae754fbe803e06186e3206f7");
+        GHCommit commit = gitHub.getUser("dollar-github-api-test-org").getRepository("test-repo").getCommit("3493b7038d4261a1330f309a9a9dd28ade7bd0cc");
         System.out.println(commit);
         assertEquals(1, commit.getParents().size());
         assertEquals(1,commit.getFiles().size());
-        assertEquals("https://github.com/jenkinsci/jenkins/commit/08c1c9970af4d609ae754fbe803e06186e3206f7",
+        assertEquals("https://github.com/dollar-github-api-test-org/test-repo/commit/3493b7038d4261a1330f309a9a9dd28ade7bd0cc",
                 commit.getHtmlUrl().toString());
 
         File f = commit.getFiles().get(0);
-        assertEquals(48,f.getLinesChanged());
-        assertEquals("modified",f.getStatus());
-        assertEquals("changelog.html", f.getFileName());
+        assertEquals(1,f.getLinesChanged());
+        assertEquals("added",f.getStatus());
+        assertEquals("dummy.txt", f.getFileName());
 
         // walk the tree
         GHTree t = commit.getTree();
-        assertThat(IOUtils.toString(t.getEntry("todo.txt").readAsBlob()), containsString("executor rendering"));
-        assertNotNull(t.getEntry("war").asTree());
+        assertThat(IOUtils.toString(t.getEntry("dummy.txt").readAsBlob()), containsString("Dummy"));
+//        assertNotNull(t.getEntry("war").asTree());
     }
 
     @Test
@@ -402,7 +402,7 @@ public class AppTest extends AbstractGitHubApiTestBase {
 
     @Test
     public void testCreateCommitComment() throws Exception {
-        GHCommit commit = gitHub.getUser("neilellis").getRepository("github-api-test").getCommit("8ae38db0ea5837313ab5f39d43a6f73de3bd9000");
+        GHCommit commit = gitHub.getUser("dollar-github-api-test-org").getRepository("test-repo").getCommit("3493b7038d4261a1330f309a9a9dd28ade7bd0cc");
         GHCommitComment c = commit.createComment("[testing](http://kohsuse.org/)");
         System.out.println(c);
         c.update("updated text");
@@ -693,9 +693,10 @@ public class AppTest extends AbstractGitHubApiTestBase {
 
     @Test   // issue #99
     public void testReadme() throws IOException {
-        GHContent readme = gitHub.getRepository("dollar-github-api-test-org/test-readme").getReadme();
+        GHContent readme = gitHub.getRepository("dollar-github-api-test-org/test-repo").getReadme();
         assertEquals(readme.getName(),"README.md");
-        assertEquals(readme.getContent(),"This is a markdown readme.\n");
+        assertEquals("# test-repo\n" +
+                "A test repo\n",readme.getContent());
     }
     
     
