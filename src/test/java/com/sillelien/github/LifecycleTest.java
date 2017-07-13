@@ -47,10 +47,10 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
                     .setBare(false)
                     .setURI(repository.getSshUrl())
                     .setDirectory(repoDir)
-                    .setCredentialsProvider(getCredentialsProvider(myself))
+                    .setCredentialsProvider(getCredentialsProvider())
                     .call();
 
-            commitTestFile(myself, repoDir, origin);
+            commitTestFile(repoDir, origin);
 
 
             GHRelease release = createRelease(repository);
@@ -97,21 +97,21 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
         return release;
     }
 
-    private void commitTestFile(GHMyself myself, File repoDir, Git origin) throws IOException, GitAPIException {
+    private void commitTestFile(File repoDir, Git origin) throws IOException, GitAPIException {
         File dummyFile = createDummyFile(repoDir);
         DirCache cache = origin.add().addFilepattern(dummyFile.getName()).call();
         origin.commit().setMessage("test commit").call();
-        origin.push().setCredentialsProvider(getCredentialsProvider(myself)).call();
+        origin.push().setCredentialsProvider(getCredentialsProvider()).call();
     }
 
-    private UsernamePasswordCredentialsProvider getCredentialsProvider(GHMyself myself) throws IOException {
+    private UsernamePasswordCredentialsProvider getCredentialsProvider() throws IOException {
         Properties props = new Properties();
         File homeDir = new File(System.getProperty("user.home"));
         ;
         try (FileInputStream in = new FileInputStream(new File(homeDir, ".github"))){
             props.load(in);
         }
-//        props.list(System.out);
+        props.list(System.out);
         return new UsernamePasswordCredentialsProvider(props.getProperty("login"), props.getProperty("password"));
     }
 
