@@ -32,6 +32,7 @@ jobs:
             command: |
               echo "login=neilellis" > ~/.github
               echo "password=${GITHUB_PASSWORD}" >> ~/.github
+              git config --global url."https://github.com".insteadOf ssh://git@github.com
               mvn -Drat.skip -Dsource.skip=true -DgenerateReports=false -Dmaven.javadoc.skip=true clean install
             no_output_timeout: 600
 
