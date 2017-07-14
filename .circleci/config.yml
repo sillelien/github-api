@@ -34,6 +34,8 @@ jobs:
               echo "password=${GITHUB_PASSWORD}" >> ~/.github
               git config --global --unset url."ssh://git@github.com".insteadOf "https://github.com" || true
               mvn -Drat.skip -Dsource.skip=true -DgenerateReports=false -Dmaven.javadoc.skip=true clean install
+              git config --global url."ssh://git@github.com".insteadOf "https://github.com" || true
+
             no_output_timeout: 600
 
         - save_cache:
