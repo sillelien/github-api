@@ -41,13 +41,14 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
                     .assignee(myself)
                     .label("bug")
                     .create();
-            File repoDir = new File(System.getProperty("java.io.tmpdir"), "github-api-test");
+            File repoDir = new File( "github-api-test-repo-dir");
             delete(repoDir);
+
             Git origin = Git.cloneRepository()
                     .setBare(false)
                     .setDirectory(repoDir)
                     .setCredentialsProvider(getCredentialsProvider())
-                    .setURI("https://github.com/dollar-github-api-test-org/github-api-testx")
+                    .setURI("https://github.com/dollar-github-api-test-org/github-api-test")
                     .call();
 
             commitTestFile(repoDir, origin);
