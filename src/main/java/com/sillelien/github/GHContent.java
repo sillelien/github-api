@@ -74,7 +74,7 @@ public class GHContent {
      *      Use {@link #read()}
      */
     public String getContent() throws IOException {
-        return new String(Base64.getDecoder().decode(getEncodedContent()));
+        return new String(Base64.getMimeDecoder().decode(getEncodedContent()));
     }
 
     /**

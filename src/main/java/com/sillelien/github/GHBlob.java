@@ -52,7 +52,7 @@ public class GHBlob {
     public InputStream read() {
         if (encoding.equals("base64")) {
             try {
-                return  new ByteArrayInputStream(Base64.getDecoder().decode(content.getBytes("US-ASCII")));
+                return  new ByteArrayInputStream(Base64.getMimeDecoder().decode(content.getBytes("US-ASCII")));
             } catch (UnsupportedEncodingException e) {
                 throw new AssertionError(e);    // US-ASCII is mandatory
             }
