@@ -47,7 +47,7 @@ public class LifecycleTest extends AbstractGitHubApiTestBase {
                     .setBare(false)
                     .setDirectory(repoDir)
                     .setCredentialsProvider(getCredentialsProvider())
-                    .setURI("https://github.com/dollar-github-api-test-org/github-api-test")
+                    .setURI("https://github.com/dollar-github-api-test-org/github-api-testx")
                     .call();
 
             commitTestFile(repoDir, origin);
