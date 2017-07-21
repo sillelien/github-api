@@ -3,3 +3,5 @@ target
 *.iml
 *.ipr
 *.iws
+github-api-test
+github-api-test-repo-dir
